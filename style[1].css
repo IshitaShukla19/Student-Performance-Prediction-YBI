@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 400px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+select, button {
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.description {
+  font-size: 14px;
+  color: #444;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.model-info {
+  background: #eef6ff;
+  border-left: 4px solid #007bff;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.reset-btn {
+  background-color: #6c757d;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+}

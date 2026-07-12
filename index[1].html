@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Performance Predictor</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Student Performance Predictor</h1>
+    <p class="description">
+      Enter the student's details below to predict whether they are likely to pass the math exam.
+    </p>
+
+    <!-- Model Info -->
+    <div class="model-info">
+      <p><strong>Model Used:</strong> Random Forest Classifier</p>
+      
+    </div>
+
+    <form id="predictForm">
+      <label>Gender:
+        <select id="gender" required>
+          <option value="" disabled selected>Select gender</option>
+          <option value="0">Female</option>
+          <option value="1">Male</option>
+        </select>
+      </label>
+
+      <label>Race/Ethnicity:
+        <select id="race" required>
+          <option value="" disabled selected>Select group</option>
+          <option value="0">Group A</option>
+          <option value="1">Group B</option>
+          <option value="2">Group C</option>
+          <option value="3">Group D</option>
+          <option value="4">Group E</option>
+        </select>
+      </label>
+
+      <label>Parental Education:
+        <select id="education" required>
+          <option value="" disabled selected>Select education level</option>
+          <option value="0">High School</option>
+          <option value="1">Associate Degree</option>
+          <option value="2">Bachelor's</option>
+        </select>
+      </label>
+
+      <label>Lunch:
+        <select id="lunch" required>
+          <option value="" disabled selected>Select lunch type</option>
+          <option value="0">Free/Reduced</option>
+          <option value="1">Standard</option>
+        </select>
+      </label>
+
+      <label>Test Preparation:
+        <select id="prep" required>
+          <option value="" disabled selected>Select test prep status</option>
+          <option value="0">None</option>
+          <option value="1">Completed</option>
+        </select>
+      </label>
+
+      <div class="button-group">
+        <button type="submit">🔍 Predict</button>
+        <button type="reset" class="reset-btn">🔄 Reset</button>
+      </div>
+    </form>
+   
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <footer style="margin-top: 40px; text-align: center; font-size: 13px;">
+  Made with <span style="color:red;">❤️</span> by 
+  <a href="https://www.linkedin.com/in/dev-rastogi03" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;">
+    Ishita Shukla
+  </a> — Future Data Scientist
+</footer>
+<script>
+document.getElementById("predictForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // stops the form from refreshing the page
+
+  // Get values from form
+  const gender = parseInt(document.getElementById("gender").value);
+  const race = parseInt(document.getElementById("race").value);
+  const education = parseInt(document.getElementById("education").value);
+  const lunch = parseInt(document.getElementById("lunch").value);
+  const testPrep = parseInt(document.getElementById("test").value);
+
+  // Prepare data to send to backend
+  const inputData = {
+    gender: gender,
+    race_ethnicity: race,
+    parental_level_of_education: education,
+    lunch: lunch,
+    test_preparation_course: testPrep
+  };
+
+  // Send data to your Flask backend on Render
+  fetch("https://student-performance-api.onrender.com/predict", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(inputData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Show the result on your page
+    document.getElementById("result").innerText = "Prediction: " + data.prediction;
+  })
+  .catch(error => {
+    document.getElementById("result").innerText = "❌ Error connecting to server.";
+    console.error("Error:", error);
+  });
+});
+</script>
+
+</body>
+</html>
